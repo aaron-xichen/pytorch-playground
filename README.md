@@ -48,7 +48,7 @@ We also provide a simple demo to quantize these models to specified bit-width wi
 `python quantize.py --type cifar10 --quant_method linear --param_bits 8 --fwd_bits 8 --bn_bits 8 --ngpu 1`
    
 ## Top1 Accuracy
-We evaluate the performance of popular dataset and models with linear quantized method, which means
+We evaluate the performance of popular dataset and models with linear quantized method. The bit-width of running mean and running variance in BN are 10 bits for all results.
 
 
 |Model|32-float  |12-bit  |10-bit |8-bit  |6-bit  |
