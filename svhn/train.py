@@ -24,6 +24,7 @@ parser.add_argument('--seed', type=int, default=117, help='random seed (default:
 parser.add_argument('--log_interval', type=int, default=100,  help='how many batches to wait before logging training status')
 parser.add_argument('--test_interval', type=int, default=5,  help='how many epochs to wait before another test')
 parser.add_argument('--logdir', default='log/default', help='folder to save to the log')
+parser.add_argument('--data_root', default='/tmp/public_dataset/pytorch/', help='folder to save the model')
 parser.add_argument('--decreasing_lr', default='80,120', help='decreasing strategy')
 args = parser.parse_args()
 misc.logger.init(args.logdir, 'train_log')
@@ -47,7 +48,7 @@ if args.cuda:
     torch.cuda.manual_seed(args.seed)
 
 # data loader and model
-train_loader, test_loader = dataset.get(batch_size=args.batch_size, num_workers=1)
+train_loader, test_loader = dataset.get(batch_size=args.batch_size, data_root=args.data_root, num_workers=1)
 model = model.svhn(n_channel=args.channel)
 model = torch.nn.DataParallel(model, device_ids= range(args.ngpu))
 if args.cuda:

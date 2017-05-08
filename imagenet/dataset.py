@@ -3,7 +3,8 @@ import os
 import os.path
 import numpy as np
 
-def get(batch_size, data_root='/mnt/local0/public_dataset/pytorch', train=True, val=True, **kwargs):
+
+def get(batch_size, data_root='/tmp/public_dataset/pytorch', train=False, val=True, **kwargs):
     data_root = os.path.expanduser(os.path.join(data_root, 'imagenet-data'))
     print("Building IMAGENET data loader, 50000 for train, 50000 for test")
     ds = []
@@ -12,6 +13,7 @@ def get(batch_size, data_root='/mnt/local0/public_dataset/pytorch', train=True, 
     if val:
         ds.append(IMAGENET(data_root, batch_size, False, **kwargs))
     ds = ds[0] if len(ds) == 1 else ds
+    assert train is not True, 'train not supported yet'
     return ds
 
 class IMAGENET(object):

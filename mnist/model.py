@@ -8,7 +8,7 @@ from utee import misc
 print = misc.logger.info
 
 model_urls = {
-    'mnist': 'none'
+    'mnist': 'http://ml.cs.tsinghua.edu.cn/~chenxi/pytorch-models/mnist-b07bb66b.pth'
 }
 
 class MLP(nn.Module):
@@ -41,12 +41,9 @@ class MLP(nn.Module):
 def mnist(input_dims=784, n_hiddens=[256, 256], n_class=10, pretrained=None):
     model = MLP(input_dims, n_hiddens, n_class)
     if pretrained is not None:
-        pretrained = misc.expand_user(pretrained)
-        if os.path.exists(pretrained):
-            print("Restoring parameters from {}".format(pretrained))
-            m = torch.load(pretrained)
-            state_dict = m.state_dict() if isinstance(m, nn.Module) else m
-            assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
-            model.load_state_dict(state_dict)
+        m = model_zoo.load_url(model_urls['mnist'])
+        state_dict = m.state_dict() if isinstance(m, nn.Module) else m
+        assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
+        model.load_state_dict(state_dict)
     return model
 

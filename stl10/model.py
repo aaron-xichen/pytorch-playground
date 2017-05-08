@@ -7,7 +7,7 @@ from collections import OrderedDict
 print = misc.logger.info
 
 model_urls = {
-    'svhn': 'none',
+    'stl10': 'http://ml.cs.tsinghua.edu.cn/~chenxi/pytorch-models/stl10-866321e9.pth',
 }
 
 class SVHN(nn.Module):
@@ -55,13 +55,10 @@ def stl10(n_channel, pretrained=None):
     layers = make_layers(cfg, batch_norm=True)
     model = SVHN(layers, n_channel=8*n_channel, num_classes=10)
     if pretrained is not None:
-        pretrained = misc.expand_user(pretrained)
-        if os.path.exists(pretrained):
-            print("Restoring parameters from {}".format(pretrained))
-            m = torch.load(pretrained)
-            state_dict = m.state_dict() if isinstance(m, nn.Module) else m
-            assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
-            model.load_state_dict(state_dict)
+        m = model_zoo.load_url(model_urls['stl10'])
+        state_dict = m.state_dict() if isinstance(m, nn.Module) else m
+        assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
+        model.load_state_dict(state_dict)
     return model
 
 

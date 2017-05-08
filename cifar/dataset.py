@@ -3,7 +3,7 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 import os
 
-def get10(batch_size, data_root='/mnt/local0/public_dataset/pytorch', train=True, val=True, **kwargs):
+def get10(batch_size, data_root='/tmp/public_dataset/pytorch', train=True, val=True, **kwargs):
     data_root = os.path.expanduser(os.path.join(data_root, 'cifar10-data'))
     num_workers = kwargs.setdefault('num_workers', 1)
     kwargs.pop('input_size', None)
@@ -25,7 +25,7 @@ def get10(batch_size, data_root='/mnt/local0/public_dataset/pytorch', train=True
     if val:
         test_loader = torch.utils.data.DataLoader(
             datasets.CIFAR10(
-                root=data_root, train=False,
+                root=data_root, train=False, download=True,
                 transform=transforms.Compose([
                     transforms.ToTensor(),
                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
@@ -35,7 +35,7 @@ def get10(batch_size, data_root='/mnt/local0/public_dataset/pytorch', train=True
     ds = ds[0] if len(ds) == 1 else ds
     return ds
 
-def get100(batch_size, data_root='/mnt/local0/public_dataset/pytorch', train=True, val=True, **kwargs):
+def get100(batch_size, data_root='/tmp/public_dataset/pytorch', train=True, val=True, **kwargs):
     data_root = os.path.expanduser(os.path.join(data_root, 'cifar100-data'))
     num_workers = kwargs.setdefault('num_workers', 1)
     kwargs.pop('input_size', None)
@@ -58,7 +58,7 @@ def get100(batch_size, data_root='/mnt/local0/public_dataset/pytorch', train=Tru
     if val:
         test_loader = torch.utils.data.DataLoader(
             datasets.CIFAR100(
-                root=data_root, train=False,
+                root=data_root, train=False, download=True,
                 transform=transforms.Compose([
                     transforms.ToTensor(),
                     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),

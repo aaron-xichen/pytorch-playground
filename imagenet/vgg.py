@@ -24,10 +24,10 @@ class VGG(nn.Module):
         self.features = features
         self.classifier = nn.Sequential(
             nn.Linear(512 * 7 * 7, 4096),
-            nn.ReLU(True),
+            nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(4096, 4096),
-            nn.ReLU(True),
+            nn.ReLU(inplace=True),
             nn.Dropout(),
             nn.Linear(4096, num_classes),
         )

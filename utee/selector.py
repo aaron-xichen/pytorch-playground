@@ -4,6 +4,17 @@ from imagenet import dataset
 print = misc.logger.info
 from IPython import embed
 
+known_models = [
+    'mnist', 'svhn', # 28x28
+    'cifar10', 'cifar100', # 32x32
+    'stl10', # 96x96
+    'alexnet', # 224x224
+    'vgg16', 'vgg16_bn', 'vgg19', 'vgg19_bn', # 224x224
+    'resnet18', 'resnet34', 'resnet50', 'resnet101','resnet152', # 224x224
+    'squeezenet_v0', 'squeezenet_v1', #224x224
+    'inception_v3', # 299x299
+]
+
 def mnist(cuda=True, model_root=None):
     print("Building and initializing mnist parameters")
     from mnist import model, dataset
@@ -149,17 +160,8 @@ def squeezenet_v1(cuda=True, model_root=None):
     return m, dataset.get, True
 
 def select(model_name, **kwargs):
-    known_models = [
-        'mnist', 'svhn', # 28x28
-        'cifar10', 'cifar100', # 32x32
-        'stl10', # 96x96
-        'alexnet', # 224x224
-        'vgg16', 'vgg16_bn', 'vgg19', 'vgg19_bn', # 224x224
-        'resnet18', 'resnet34', 'resnet50', 'resnet101','resnet152', # 224x224
-        'squeezenet_v0', 'squeezenet_v1', #224x224
-        'inception_v3', # 299x299
-    ]
     assert model_name in known_models, model_name
+    kwargs.setdefault('model_root', os.path.expanduser('~/.torch/models'))
     return eval('{}'.format(model_name))(**kwargs)
 
 if __name__ == '__main__':

@@ -1,18 +1,14 @@
-import torch
 import torch.nn as nn
-from collections import OrderedDict
 import torch.utils.model_zoo as model_zoo
 from IPython import embed
-import os
-import math
 from collections import OrderedDict
 
 from utee import misc
 print = misc.logger.info
 
 model_urls = {
-    'cifar10': 'none',
-    'cifar100': 'none'
+    'cifar10': 'http://ml.cs.tsinghua.edu.cn/~chenxi/pytorch-models/cifar10-d875770b.pth',
+    'cifar100': 'http://ml.cs.tsinghua.edu.cn/~chenxi/pytorch-models/cifar100-3a55a987.pth',
 }
 
 class CIFAR(nn.Module):
@@ -54,13 +50,10 @@ def cifar10(n_channel, pretrained=None):
     layers = make_layers(cfg, batch_norm=True)
     model = CIFAR(layers, n_channel=8*n_channel, num_classes=10)
     if pretrained is not None:
-        pretrained = misc.expand_user(pretrained)
-        if os.path.exists(pretrained):
-            print("Restoring model from {}".format(pretrained))
-            m = torch.load(pretrained)
-            state_dict = m.state_dict() if isinstance(m, nn.Module) else m
-            assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
-            model.load_state_dict(state_dict)
+        m = model_zoo.load_url(model_urls['cifar10'])
+        state_dict = m.state_dict() if isinstance(m, nn.Module) else m
+        assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
+        model.load_state_dict(state_dict)
     return model
 
 def cifar100(n_channel, pretrained=None):
@@ -68,13 +61,10 @@ def cifar100(n_channel, pretrained=None):
     layers = make_layers(cfg, batch_norm=True)
     model = CIFAR(layers, n_channel=8*n_channel, num_classes=100)
     if pretrained is not None:
-        pretrained = misc.expand_user(pretrained)
-        if os.path.exists(pretrained):
-            print("Restoring parameters from {}".format(pretrained))
-            m = torch.load(pretrained)
-            state_dict = m.state_dict() if isinstance(m, nn.Module) else m
-            assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
-            model.load_state_dict(state_dict)
+        m = model_zoo.load_url(model_urls['cifar100'])
+        state_dict = m.state_dict() if isinstance(m, nn.Module) else m
+        assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
+        model.load_state_dict(state_dict)
     return model
 
 if __name__ == '__main__':
