@@ -10,9 +10,9 @@ This is a playground for pytorch beginners, which contains predefined models on 
 
 Here is an example for MNIST dataset. This will download the dataset and pre-trained model automatically.
 ```
-from utee import selector
 import torch
 from torch.autograd import Variable
+from utee import selector
 model_raw, ds_fetcher, is_imagenet = selector.select('mnist')
 ds_val = ds_fetcher(batch_size=10, train=False, val=True)
 for idx, (data, target) in enumerate(ds_val):
@@ -24,7 +24,9 @@ Also, if want to train the MLP model on mnist, simply run `python mnist/train.py
 
 
 # Install
-- pytorch and torchvision from [official website](http://pytorch.org/)
+- pytorch (>=0.1.11) and torchvision from [official website](http://pytorch.org/), for example, cuda8.0 for python3.5
+    - `pip install http://download.pytorch.org/whl/cu80/torch-0.1.12.post2-cp35-cp35m-linux_x86_64.whl`
+    - `pip install torchvision`
 - tqdm
     - `pip install tqdm`
 - OpenCV
@@ -36,13 +38,14 @@ Also, if want to train the MLP model on mnist, simply run `python mnist/train.py
 We provide precomputed imagenet validation dataset with 224x224x3 size. We first resize the shorter size of image to 256, then we crop 224x224 image in the center. Then we encode the cropped images to jpg string and dump to pickle. 
 - `cd script`
 - Download the [val224_compressed.pkl](http://ml.cs.tsinghua.edu.cn/~chenxi/dataset/val224_compressed.pkl) 
+    - `axel http://ml.cs.tsinghua.edu.cn/~chenxi/dataset/val224_compressed.pkl`
 - `python convert.py`
 
 
 # Quantization
 We also provide a simple demo to quantize these models to specified bit-width with several methods, including linear method, minmax method and non-linear method.
 
-`python quantize.py --type cifar10 --quant_method linear --param_bits 8 --fwd_bits 8 --bn_bits 8`
+`python quantize.py --type cifar10 --quant_method linear --param_bits 8 --fwd_bits 8 --bn_bits 8 --ngpu 1`
    
 ## Top1 Accuracy
 We evaluate the performance of popular dataset and models with linear quantized method, which means
@@ -66,7 +69,8 @@ We evaluate the performance of popular dataset and models with linear quantized 
 |[SqueezeNetV0](https://download.pytorch.org/models/squeezenet1_0-a815701f.pth)|56.73%|56.75%|56.70%|53.93%|14.21%|
 |[SqueezeNetV1](https://download.pytorch.org/models/squeezenet1_1-f364aa15.pth)|56.52%|56.52%|56.24%|54.56%|17.10%|
 |[InceptionV3](https://download.pytorch.org/models/inception_v3_google-1a9a5a14.pth)|76.41%|76.43%|76.44%|73.67%|1.50%|
-Note: ImageNet 32-float models are directly from torchvision
+
+**Note: ImageNet 32-float models are directly from torchvision**
 
 
 ## Selected Arguments

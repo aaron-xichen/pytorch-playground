@@ -105,7 +105,7 @@ def model_snapshot(model, new_file, old_file=None, verbose=False):
         print("Saving model to {}".format(expand_user(new_file)))
 
     state_dict = OrderedDict()
-    for k, v in model.state_dict():
+    for k, v in model.state_dict().items():
         if v.is_cuda:
             v = v.cpu()
         state_dict[k] = v

@@ -26,6 +26,7 @@ parser.add_argument('--test_interval', type=int, default=5,  help='how many epoc
 parser.add_argument('--logdir', default='log/default', help='folder to save to the log')
 parser.add_argument('--decreasing_lr', default='80,120', help='decreasing strategy')
 args = parser.parse_args()
+args.logdir = os.path.join(os.path.dirname(__file__), args.logdir)
 misc.logger.init(args.logdir, 'train_log')
 print = misc.logger.info
 
