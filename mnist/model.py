@@ -1,9 +1,6 @@
-import torch
 import torch.nn as nn
 from collections import OrderedDict
-import os
 import torch.utils.model_zoo as model_zoo
-from IPython import embed
 from utee import misc
 print = misc.logger.info
 

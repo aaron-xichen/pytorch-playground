@@ -1,13 +1,9 @@
 import argparse
-
 from utee import misc, quant, selector
 import torch
 import torch.backends.cudnn as cudnn
 cudnn.benchmark =True
-from IPython import embed
 from collections import OrderedDict
-from torch.autograd import Variable
-import os
 
 parser = argparse.ArgumentParser(description='PyTorch SVHN Example')
 parser.add_argument('--type', default='cifar10', help='|'.join(selector.known_models))
@@ -17,7 +13,6 @@ parser.add_argument('--gpu', default=None, help='index of gpus to use')
 parser.add_argument('--ngpu', type=int, default=8, help='number of gpus to use')
 parser.add_argument('--seed', type=int, default=117, help='random seed (default: 1)')
 parser.add_argument('--model_root', default='~/.torch/models/', help='folder to save the model')
-# parser.add_argument('--data_root', default='/mnt/local0/public_dataset/pytorch/', help='folder to save the model')
 parser.add_argument('--data_root', default='/tmp/public_dataset/pytorch/', help='folder to save the model')
 parser.add_argument('--logdir', default='log/default', help='folder to save to the log')
 

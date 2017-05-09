@@ -79,7 +79,7 @@ Here we give an overview of selected arguments of `quantize.py`
 |Flag                          |Default value|Description & Options|
 |:-----------------------------|:-----------------------:|:--------------------------------|
 |type|cifar10|mnist,svhn,cifar10,cifar100,stl10,alexnet,vgg16,vgg16_bn,vgg19,vgg19_bn,resent18,resent34,resnet50,resnet101,resnet152,squeezenet_v0,squeezenet_v1,inception_v3|
-|quant_mothod|linear|quantization method:linear,minmax,log,tanh|
+|quant_method|linear|quantization method:linear,minmax,log,tanh|
 |param_bits|8|bit-width of weights and bias|
 |fwd_bits|8|bit-width of activation|
 |bn_bits|32|bit-width of running mean and running vairance|
