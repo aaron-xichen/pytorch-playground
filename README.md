@@ -4,7 +4,7 @@ This is a playground for pytorch beginners, which contains predefined models on 
 - stl10
 - alexnet
 - vgg16, vgg16_bn, vgg19, vgg19_bn
-- resent18, resent34, resnet50, resnet101, resnet152
+- resnet18, resnet34, resnet50, resnet101, resnet152
 - squeezenet_v0, squeezenet_v1
 - inception_v3
 
