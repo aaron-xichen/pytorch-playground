@@ -6,6 +6,8 @@ import time
 import numpy as np
 import hashlib
 
+from IPython import embed
+
 class Logger(object):
     def __init__(self):
         self._logger = None
@@ -167,7 +169,7 @@ def eval_model(model, ds, n_sample=None, ngpu=1, is_imagenet=False):
             input.data[:, 2, :, :].sub_(self.mean[2]).div_(self.std[2])
             return self.model(input)
 
-    correct = 0
+    correct1, correct5 = 0, 0
     n_passed = 0
     if is_imagenet:
         model = ModelWrapper(model)
@@ -179,16 +181,22 @@ def eval_model(model, ds, n_sample=None, ngpu=1, is_imagenet=False):
         n_passed += len(data)
         data =  Variable(torch.FloatTensor(data)).cuda()
         indx_target = torch.LongTensor(target)
-
         output = model(data)
-        pred = output.data.max(1)[1]  # get the index of the max log-probability
-        correct += pred.cpu().eq(indx_target).sum()
+        bs = output.size(0)
+        idx_pred = output.data.sort(1, descending=True)[1]
+
+        idx_gt1 = indx_target.expand(1, bs).transpose_(0, 1)
+        idx_gt5 = idx_gt1.expand(bs, 5)
+
+        correct1 += idx_pred[:, :1].cpu().eq(idx_gt1).sum()
+        correct5 += idx_pred[:, :5].cpu().eq(idx_gt5).sum()
 
         if idx >= n_sample - 1:
             break
 
-    acc = correct * 1.0 / n_passed
-    return acc
+    acc1 = correct1 * 1.0 / n_passed
+    acc5 = correct5 * 1.0 / n_passed
+    return acc1, acc5
 
 def load_state_dict(model, model_urls, model_root):
     from torch.utils import model_zoo

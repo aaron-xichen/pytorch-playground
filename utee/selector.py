@@ -56,7 +56,7 @@ def stl10(cuda=True, model_root=None):
     return m, dataset.get, False
 
 def alexnet(cuda=True, model_root=None):
-    print("Building and initializing vgg16 parameters")
+    print("Building and initializing alexnet parameters")
     from imagenet import alexnet as alx
     m = alx.alexnet(True, model_root)
     if cuda:
@@ -96,7 +96,7 @@ def vgg19_bn(cuda=True, model_root=None):
     return m, dataset.get, True
 
 def inception_v3(cuda=True, model_root=None):
-    print("Building and initializing inception v3 parameters")
+    print("Building and initializing inception_v3 parameters")
     from imagenet import inception
     m = inception.inception_v3(True, model_root)
     if cuda:
@@ -144,7 +144,7 @@ def resnet152(cuda=True, model_root=None):
     return m, dataset.get, True
 
 def squeezenet_v0(cuda=True, model_root=None):
-    print("Building and initializing squeezenet parameters")
+    print("Building and initializing squeezenet_v0 parameters")
     from imagenet import squeezenet
     m = squeezenet.squeezenet1_0(True, model_root)
     if cuda:
@@ -152,7 +152,7 @@ def squeezenet_v0(cuda=True, model_root=None):
     return m, dataset.get, True
 
 def squeezenet_v1(cuda=True, model_root=None):
-    print("Building and initializing squeezenet parameters")
+    print("Building and initializing squeezenet_v1 parameters")
     from imagenet import squeezenet
     m = squeezenet.squeezenet1_1(True, model_root)
     if cuda:
