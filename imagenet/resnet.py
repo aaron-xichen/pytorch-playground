@@ -34,10 +34,7 @@ class BasicBlock(nn.Module):
         m['bn2'] = nn.BatchNorm2d(planes)
         self.group1 = nn.Sequential(m)
 
-        if downsample is not None:
-            self.relu= nn.Sequential(nn.ReLU(inplace=True), mIdentity())
-        else:
-            self.relu= nn.Sequential(nn.ReLU(inplace=True))
+        self.relu= nn.Sequential(mIdentity(), nn.ReLU(inplace=True))
         self.downsample = downsample
 
     def forward(self, x):
@@ -68,11 +65,7 @@ class Bottleneck(nn.Module):
         self.group1 = nn.Sequential(m)
 
 
-        if downsample is not None:
-            self.relu= nn.Sequential(nn.ReLU(inplace=True), mIdentity())
-        else:
-            self.relu= nn.Sequential(nn.ReLU(inplace=True))
-
+        self.relu= nn.Sequential(mIdentity(), nn.ReLU(inplace=True))
         self.downsample = downsample
 
     def forward(self, x):
