@@ -9,7 +9,7 @@ imagenet_urls = [
    'http://ml.cs.tsinghua.edu.cn/~chenxi/dataset/val224_compressed.pkl'
 ]
 parser = argparse.ArgumentParser(description='Extract the ILSVRC2012 val dataset')
-parser.add_argument('--in_file', default='val224_compressed.pkl', help='input file path')
+parser.add_argument(dest='in_file', default='val224_compressed.pkl', help='input file path')
 parser.add_argument('--out_root', default='/tmp/public_dataset/pytorch/imagenet-data/', help='output file path')
 args = parser.parse_args()
 

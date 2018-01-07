@@ -37,9 +37,10 @@ Also, if want to train the MLP model on mnist, simply run `python mnist/train.py
 # ImageNet dataset
 We provide precomputed imagenet validation dataset with 224x224x3 size. We first resize the shorter size of image to 256, then we crop 224x224 image in the center. Then we encode the cropped images to jpg string and dump to pickle. 
 - `cd script`
-- Download the [val224_compressed.pkl](http://ml.cs.tsinghua.edu.cn/~chenxi/dataset/val224_compressed.pkl) 
+- Download the [val224_compressed.pkl](http://ml.cs.tsinghua.edu.cn/~chenxi/dataset/val224_compressed.pkl) (~1.3G)
     - `axel http://ml.cs.tsinghua.edu.cn/~chenxi/dataset/val224_compressed.pkl`
-- `python convert.py`
+- Generate `val224.pkl` and `val299.pkl`
+- `python convert.py /path/to/val224_compressed.pkl` 
 
 
 # Quantization

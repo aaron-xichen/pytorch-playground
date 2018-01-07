@@ -6,8 +6,6 @@ import time
 import numpy as np
 import hashlib
 
-from IPython import embed
-
 class Logger(object):
     def __init__(self):
         self._logger = None
@@ -224,4 +222,5 @@ def load_state_dict(model, model_urls, model_root):
     missing = set(own_state.keys()) - set(state_dict.keys())
     if len(missing) > 0:
         raise KeyError('missing keys in state_dict: "{}"'.format(missing))
+
 

@@ -2,6 +2,7 @@ from torch.autograd import Variable
 import torch
 from torch import nn
 from collections import OrderedDict
+from utee.identity import mIdentity
 import math
 from IPython import embed
 
@@ -163,7 +164,7 @@ def duplicate_model_with_quant(model, bits, overflow_rate=0.0, counter=10, type=
     if isinstance(model, nn.Sequential):
         l = OrderedDict()
         for k, v in model._modules.items():
-            if isinstance(v, (nn.Conv2d, nn.Linear, nn.BatchNorm1d, nn.BatchNorm2d, nn.AvgPool2d)):
+            if isinstance(v, (nn.Conv2d, nn.Linear, nn.BatchNorm1d, nn.BatchNorm2d, nn.AvgPool2d, mIdentity)):
                 l[k] = v
                 if type == 'linear':
                     quant_layer = LinearQuant('{}_quant'.format(k), bits=bits, overflow_rate=overflow_rate, counter=counter)

@@ -1,6 +1,7 @@
 import torch.nn as nn
 import math
 from utee import misc
+from utee.identity import mIdentity
 from collections import OrderedDict
 
 __all__ = ['ResNet', 'resnet18', 'resnet34', 'resnet50', 'resnet101',
@@ -33,7 +34,10 @@ class BasicBlock(nn.Module):
         m['bn2'] = nn.BatchNorm2d(planes)
         self.group1 = nn.Sequential(m)
 
-        self.relu= nn.Sequential(nn.ReLU(inplace=True))
+        if downsample is not None:
+            self.relu= nn.Sequential(nn.ReLU(inplace=True), mIdentity())
+        else:
+            self.relu= nn.Sequential(nn.ReLU(inplace=True))
         self.downsample = downsample
 
     def forward(self, x):
@@ -43,7 +47,6 @@ class BasicBlock(nn.Module):
             residual = x
 
         out = self.group1(x) + residual
-
         out = self.relu(out)
 
         return out
@@ -64,7 +67,12 @@ class Bottleneck(nn.Module):
         m['bn3'] = nn.BatchNorm2d(planes * 4)
         self.group1 = nn.Sequential(m)
 
-        self.relu= nn.Sequential(nn.ReLU(inplace=True))
+
+        if downsample is not None:
+            self.relu= nn.Sequential(nn.ReLU(inplace=True), mIdentity())
+        else:
+            self.relu= nn.Sequential(nn.ReLU(inplace=True))
+
         self.downsample = downsample
 
     def forward(self, x):
