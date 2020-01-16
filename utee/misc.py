@@ -222,6 +222,7 @@ def load_state_dict(model, model_urls, model_root):
         own_state[name].copy_(param)
 
     missing = set(own_state.keys()) - set(state_dict.keys())
-    if len(missing) > 0:
-        raise KeyError('missing keys in state_dict: "{}"'.format(missing))
+    no_use = set(state_dict.keys()) - set(own_state.keys())
+    if len(no_use) > 0:
+        raise KeyError('some keys are not used: "{}"'.format(no_use))
 

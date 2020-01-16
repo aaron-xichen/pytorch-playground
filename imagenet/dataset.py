@@ -2,6 +2,7 @@ from utee import misc
 import os
 import os.path
 import numpy as np
+import joblib
 
 
 def get(batch_size, data_root='/tmp/public_dataset/pytorch', train=False, val=True, **kwargs):
@@ -26,7 +27,7 @@ class IMAGENET(object):
             pkl_file = os.path.join(root, 'train{}.pkl'.format(input_size))
         else:
             pkl_file = os.path.join(root, 'val{}.pkl'.format(input_size))
-        self.data_dict = misc.load_pickle(pkl_file)
+        self.data_dict = joblib.load(pkl_file)
 
         self.batch_size = batch_size
         self.idx = 0

@@ -11,7 +11,7 @@ def compute_integral_part(input, overflow_rate):
     split_idx = int(overflow_rate * len(sorted_value))
     v = sorted_value[split_idx]
     if isinstance(v, Variable):
-        v = v.data.cpu().numpy()[0]
+        v = float(v.data.cpu())
     sf = math.ceil(math.log2(v+1e-12))
     return sf
 
@@ -35,7 +35,7 @@ def log_minmax_quantize(input, bits):
 
     s = torch.sign(input)
     input0 = torch.log(torch.abs(input) + 1e-20)
-    v = min_max_quantize(input0, bits)
+    v = min_max_quantize(input0, bits-1)
     v = torch.exp(v) * s
     return v
 
@@ -46,7 +46,7 @@ def log_linear_quantize(input, sf, bits):
 
     s = torch.sign(input)
     input0 = torch.log(torch.abs(input) + 1e-20)
-    v = linear_quantize(input0, sf, bits)
+    v = linear_quantize(input0, sf, bits-1)
     v = torch.exp(v) * s
     return v
 

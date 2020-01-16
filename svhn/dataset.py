@@ -10,7 +10,7 @@ def get(batch_size, data_root='/tmp/public_dataset/pytorch', train=True, val=Tru
     print("Building SVHN data loader with {} workers".format(num_workers))
 
     def target_transform(target):
-        return int(target[0]) - 1
+        return int(target) - 1
 
     ds = []
     if train:

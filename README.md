@@ -24,27 +24,21 @@ Also, if want to train the MLP model on mnist, simply run `python mnist/train.py
 
 
 # Install
-- pytorch (>=0.1.11) and torchvision from [official website](http://pytorch.org/), for example, cuda8.0 for python3.5
-    - `pip install http://download.pytorch.org/whl/cu80/torch-0.1.12.post2-cp35-cp35m-linux_x86_64.whl`
-    - `pip install torchvision`
-- tqdm
-    - `pip install tqdm`
-- OpenCV
-    - `conda install -c menpo opencv3`
-- Setting PYTHONPATH
-    - `export PYTHONPATH=/path/to/pytorch-playground:$PYTHONPATH`
+```
+python3 setup.py develop --user
+```
 
 # ImageNet dataset
 We provide precomputed imagenet validation dataset with 224x224x3 size. We first resize the shorter size of image to 256, then we crop 224x224 image in the center. Then we encode the cropped images to jpg string and dump to pickle. 
 - `cd script`
-- Download the [val224_compressed.pkl](https://drive.google.com/file/d/1U8ir2fOR4Sir3FCj9b7FQRPSVsycTfVc/view?usp=sharing) 
-- `python convert.py`
+- Download the `val224_compressed.pkl` ([Tsinghua](http://ml.cs.tsinghua.edu.cn/~chenxi/dataset/val224_compressed.pkl) /  [Google Drive](https://drive.google.com/file/d/1U8ir2fOR4Sir3FCj9b7FQRPSVsycTfVc/view?usp=sharing))
+- `python convert.py` (needs 48G memory, thanks [@jnorwood](https://github.com/aaron-xichen/pytorch-playground/issues/18) )
 
 
 # Quantization
 We also provide a simple demo to quantize these models to specified bit-width with several methods, including linear method, minmax method and non-linear method.
 
-`python quantize.py --type cifar10 --quant_method linear --param_bits 8 --fwd_bits 8 --bn_bits 8 --ngpu 1`
+`quantize --type cifar10 --quant_method linear --param_bits 8 --fwd_bits 8 --bn_bits 8 --ngpu 1`
    
 ## Top1 Accuracy
 We evaluate the performance of popular dataset and models with linear quantized method. The bit-width of running mean and running variance in BN are 10 bits for all results. (except for 32-float)
