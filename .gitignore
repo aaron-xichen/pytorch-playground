@@ -1,7 +1,7 @@
 __pycache__
-*.txt
 *.jpg
 *.png
+acc1_acc5.txt
 log
 pytorch_playground.egg-info
 script/val224_compressed.pkl

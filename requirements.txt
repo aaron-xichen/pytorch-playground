@@ -1,0 +1,5 @@
+Pillow==6.1
+torchvision==0.4.2
+tqdm==4.41.1
+opencv-python==4.1.2.30
+joblib==0.14.1
