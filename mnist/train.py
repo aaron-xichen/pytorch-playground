@@ -85,7 +85,7 @@ try:
                 acc = correct * 1.0 / len(data)
                 print('Train Epoch: {} [{}/{}] Loss: {:.6f} Acc: {:.4f} lr: {:.2e}'.format(
                     epoch, batch_idx * len(data), len(train_loader.dataset),
-                    loss.data[0], acc, optimizer.param_groups[0]['lr']))
+                    loss.data, acc, optimizer.param_groups[0]['lr']))
 
         elapse_time = time.time() - t_begin
         speed_epoch = elapse_time / (epoch + 1)
@@ -105,7 +105,7 @@ try:
                     data, target = data.cuda(), target.cuda()
                 data, target = Variable(data, volatile=True), Variable(target)
                 output = model(data)
-                test_loss += F.cross_entropy(output, target).data[0]
+                test_loss += F.cross_entropy(output, target).data
                 pred = output.data.max(1)[1]  # get the index of the max log-probability
                 correct += pred.cpu().eq(indx_target).sum()
 
