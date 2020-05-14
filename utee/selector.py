@@ -74,7 +74,7 @@ def vgg16(cuda=True, model_root=None):
 def vgg16_bn(cuda=True, model_root=None):
     print("Building vgg16_bn parameters")
     from imagenet import vgg
-    m = vgg.vgg19_bn(model_root)
+    m = vgg.vgg16_bn(model_root)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
