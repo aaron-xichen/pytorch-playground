@@ -13,12 +13,12 @@ model_urls = {
 }
 
 
-def inception_v3(pretrained=False, model_root=None, **kwargs):
+def inception_v3(pretrained=False, model_root=None, cuda=True, **kwargs):
     if pretrained:
         if 'transform_input' not in kwargs:
             kwargs['transform_input'] = True
         model = Inception3(**kwargs)
-        misc.load_state_dict(model, model_urls['inception_v3_google'], model_root)
+        misc.load_state_dict(model, model_urls['inception_v3_google'], model_root, cuda)
         return model
 
     return Inception3(**kwargs)

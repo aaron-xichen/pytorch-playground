@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch.utils.model_zoo as model_zoo
 from IPython import embed
+import torch
 from collections import OrderedDict
 
 from utee import misc
@@ -45,23 +46,23 @@ def make_layers(cfg, batch_norm=False):
             in_channels = out_channels
     return nn.Sequential(*layers)
 
-def cifar10(n_channel, pretrained=None):
+def cifar10(n_channel, pretrained=None, cuda=True):
     cfg = [n_channel, n_channel, 'M', 2*n_channel, 2*n_channel, 'M', 4*n_channel, 4*n_channel, 'M', (8*n_channel, 0), 'M']
     layers = make_layers(cfg, batch_norm=True)
     model = CIFAR(layers, n_channel=8*n_channel, num_classes=10)
     if pretrained is not None:
-        m = model_zoo.load_url(model_urls['cifar10'])
+        m = model_zoo.load_url(model_urls['cifar10'], map_location=torch.device("cuda" if cuda else "cpu"))
         state_dict = m.state_dict() if isinstance(m, nn.Module) else m
         assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
         model.load_state_dict(state_dict)
     return model
 
-def cifar100(n_channel, pretrained=None):
+def cifar100(n_channel, pretrained=None, cuda=True):
     cfg = [n_channel, n_channel, 'M', 2*n_channel, 2*n_channel, 'M', 4*n_channel, 4*n_channel, 'M', (8*n_channel, 0), 'M']
     layers = make_layers(cfg, batch_norm=True)
     model = CIFAR(layers, n_channel=8*n_channel, num_classes=100)
     if pretrained is not None:
-        m = model_zoo.load_url(model_urls['cifar100'])
+        m = model_zoo.load_url(model_urls['cifar100'], map_location=torch.device("cuda" if cuda else "cpu"))
         state_dict = m.state_dict() if isinstance(m, nn.Module) else m
         assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
         model.load_state_dict(state_dict)

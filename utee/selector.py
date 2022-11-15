@@ -18,7 +18,7 @@ known_models = [
 def mnist(cuda=True, model_root=None):
     print("Building and initializing mnist parameters")
     from mnist import model, dataset
-    m = model.mnist(pretrained=os.path.join(model_root, 'mnist.pth'))
+    m = model.mnist(pretrained=os.path.join(model_root, 'mnist.pth'), cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, False
@@ -26,7 +26,7 @@ def mnist(cuda=True, model_root=None):
 def svhn(cuda=True, model_root=None):
     print("Building and initializing svhn parameters")
     from svhn import model, dataset
-    m = model.svhn(32, pretrained=os.path.join(model_root, 'svhn.pth'))
+    m = model.svhn(32, pretrained=os.path.join(model_root, 'svhn.pth'), cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, False
@@ -34,7 +34,7 @@ def svhn(cuda=True, model_root=None):
 def cifar10(cuda=True, model_root=None):
     print("Building and initializing cifar10 parameters")
     from cifar import model, dataset
-    m = model.cifar10(128, pretrained=os.path.join(model_root, 'cifar10.pth'))
+    m = model.cifar10(128, pretrained=os.path.join(model_root, 'cifar10.pth'), cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get10, False
@@ -42,7 +42,7 @@ def cifar10(cuda=True, model_root=None):
 def cifar100(cuda=True, model_root=None):
     print("Building and initializing cifar100 parameters")
     from cifar import model, dataset
-    m = model.cifar100(128, pretrained=os.path.join(model_root, 'cifar100.pth'))
+    m = model.cifar100(128, pretrained=os.path.join(model_root, 'cifar100.pth'), cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get100, False
@@ -50,7 +50,7 @@ def cifar100(cuda=True, model_root=None):
 def stl10(cuda=True, model_root=None):
     print("Building and initializing stl10 parameters")
     from stl10 import model, dataset
-    m = model.stl10(32, pretrained=os.path.join(model_root, 'stl10.pth'))
+    m = model.stl10(32, pretrained=os.path.join(model_root, 'stl10.pth'), cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, False
@@ -58,7 +58,7 @@ def stl10(cuda=True, model_root=None):
 def alexnet(cuda=True, model_root=None):
     print("Building and initializing alexnet parameters")
     from imagenet import alexnet as alx
-    m = alx.alexnet(True, model_root)
+    m = alx.alexnet(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -82,7 +82,7 @@ def vgg16_bn(cuda=True, model_root=None):
 def vgg19(cuda=True, model_root=None):
     print("Building and initializing vgg19 parameters")
     from imagenet import vgg
-    m = vgg.vgg19(True, model_root)
+    m = vgg.vgg19(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -98,7 +98,7 @@ def vgg19_bn(cuda=True, model_root=None):
 def inception_v3(cuda=True, model_root=None):
     print("Building and initializing inception_v3 parameters")
     from imagenet import inception
-    m = inception.inception_v3(True, model_root)
+    m = inception.inception_v3(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -106,7 +106,7 @@ def inception_v3(cuda=True, model_root=None):
 def resnet18(cuda=True, model_root=None):
     print("Building and initializing resnet-18 parameters")
     from imagenet import resnet
-    m = resnet.resnet18(True, model_root)
+    m = resnet.resnet18(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -114,7 +114,7 @@ def resnet18(cuda=True, model_root=None):
 def resnet34(cuda=True, model_root=None):
     print("Building and initializing resnet-34 parameters")
     from imagenet import resnet
-    m = resnet.resnet34(True, model_root)
+    m = resnet.resnet34(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -122,7 +122,7 @@ def resnet34(cuda=True, model_root=None):
 def resnet50(cuda=True, model_root=None):
     print("Building and initializing resnet-50 parameters")
     from imagenet import resnet
-    m = resnet.resnet50(True, model_root)
+    m = resnet.resnet50(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -130,7 +130,7 @@ def resnet50(cuda=True, model_root=None):
 def resnet101(cuda=True, model_root=None):
     print("Building and initializing resnet-101 parameters")
     from imagenet import resnet
-    m = resnet.resnet101(True, model_root)
+    m = resnet.resnet101(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -138,7 +138,7 @@ def resnet101(cuda=True, model_root=None):
 def resnet152(cuda=True, model_root=None):
     print("Building and initializing resnet-152 parameters")
     from imagenet import resnet
-    m = resnet.resnet152(True, model_root)
+    m = resnet.resnet152(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -146,7 +146,7 @@ def resnet152(cuda=True, model_root=None):
 def squeezenet_v0(cuda=True, model_root=None):
     print("Building and initializing squeezenet_v0 parameters")
     from imagenet import squeezenet
-    m = squeezenet.squeezenet1_0(True, model_root)
+    m = squeezenet.squeezenet1_0(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
@@ -154,7 +154,7 @@ def squeezenet_v0(cuda=True, model_root=None):
 def squeezenet_v1(cuda=True, model_root=None):
     print("Building and initializing squeezenet_v1 parameters")
     from imagenet import squeezenet
-    m = squeezenet.squeezenet1_1(True, model_root)
+    m = squeezenet.squeezenet1_1(True, model_root, cuda=cuda)
     if cuda:
         m = m.cuda()
     return m, dataset.get, True
