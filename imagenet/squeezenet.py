@@ -113,18 +113,18 @@ class SqueezeNet(nn.Module):
         x = self.classifier(x)
         return x.view(x.size(0), self.num_classes)
 
-def squeezenet1_0(pretrained=False, model_root=None, **kwargs):
+def squeezenet1_0(pretrained=False, model_root=None, cuda=True, **kwargs):
     r"""SqueezeNet model architecture from the `"SqueezeNet: AlexNet-level
     accuracy with 50x fewer parameters and <0.5MB model size"
     <https://arxiv.org/abs/1602.07360>`_ paper.
     """
     model = SqueezeNet(version=1.0, **kwargs)
     if pretrained:
-        misc.load_state_dict(model, model_urls['squeezenet1_0'], model_root)
+        misc.load_state_dict(model, model_urls['squeezenet1_0'], model_root, cuda)
     return model
 
 
-def squeezenet1_1(pretrained=False, model_root=None, **kwargs):
+def squeezenet1_1(pretrained=False, model_root=None, cuda=True, **kwargs):
     r"""SqueezeNet 1.1 model from the `official SqueezeNet repo
     <https://github.com/DeepScale/SqueezeNet/tree/master/SqueezeNet_v1.1>`_.
     SqueezeNet 1.1 has 2.4x less computation and slightly fewer parameters
@@ -132,6 +132,6 @@ def squeezenet1_1(pretrained=False, model_root=None, **kwargs):
     """
     model = SqueezeNet(version=1.1, **kwargs)
     if pretrained:
-        misc.load_state_dict(model, model_urls['squeezenet1_1'], model_root)
+        misc.load_state_dict(model, model_urls['squeezenet1_1'], model_root, cuda)
     return model
 

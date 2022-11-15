@@ -1,3 +1,4 @@
+import torch
 import torch.nn as nn
 import torch.utils.model_zoo as model_zoo
 import math
@@ -79,11 +80,11 @@ cfg = {
 }
 
 
-def vgg11(pretrained=False, model_root=None, **kwargs):
+def vgg11(pretrained=False, model_root=None, cuda=True, **kwargs):
     """VGG 11-layer model (configuration "A")"""
     model = VGG(make_layers(cfg['A']), **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['vgg11'], model_root))
+        model.load_state_dict(model_zoo.load_url(model_urls['vgg11'], model_root, map_location=torch.device("cuda" if cuda else "cpu")))
     return model
 
 
@@ -93,11 +94,11 @@ def vgg11_bn(**kwargs):
     return VGG(make_layers(cfg['A'], batch_norm=True), **kwargs)
 
 
-def vgg13(pretrained=False, model_root=None, **kwargs):
+def vgg13(pretrained=False, model_root=None, cuda=True, **kwargs):
     """VGG 13-layer model (configuration "B")"""
     model = VGG(make_layers(cfg['B']), **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['vgg13'], model_root))
+        model.load_state_dict(model_zoo.load_url(model_urls['vgg13'], model_root, map_location=torch.device("cuda" if cuda else "cpu")))
     return model
 
 
@@ -107,11 +108,11 @@ def vgg13_bn(**kwargs):
     return VGG(make_layers(cfg['B'], batch_norm=True), **kwargs)
 
 
-def vgg16(pretrained=False, model_root=None, **kwargs):
+def vgg16(pretrained=False, model_root=None, cuda=True, **kwargs):
     """VGG 16-layer model (configuration "D")"""
     model = VGG(make_layers(cfg['D']), **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['vgg16'], model_root))
+        model.load_state_dict(model_zoo.load_url(model_urls['vgg16'], model_root, map_location=torch.device("cuda" if cuda else "cpu")))
     return model
 
 
@@ -121,11 +122,11 @@ def vgg16_bn(**kwargs):
     return VGG(make_layers(cfg['D'], batch_norm=True), **kwargs)
 
 
-def vgg19(pretrained=False, model_root=None, **kwargs):
+def vgg19(pretrained=False, model_root=None, cuda=True, **kwargs):
     """VGG 19-layer model (configuration "E")"""
     model = VGG(make_layers(cfg['E']), **kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['vgg19'], model_root))
+        model.load_state_dict(model_zoo.load_url(model_urls['vgg19'], model_root, map_location=torch.device("cuda" if cuda else "cpu")))
     return model
 
 

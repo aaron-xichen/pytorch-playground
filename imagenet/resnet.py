@@ -143,36 +143,36 @@ class ResNet(nn.Module):
         return x
 
 
-def resnet18(pretrained=False, model_root=None, **kwargs):
+def resnet18(pretrained=False, model_root=None, cuda=True, **kwargs):
     model = ResNet(BasicBlock, [2, 2, 2, 2], **kwargs)
     if pretrained:
-        misc.load_state_dict(model, model_urls['resnet18'], model_root)
+        misc.load_state_dict(model, model_urls['resnet18'], model_root, cuda)
     return model
 
 
-def resnet34(pretrained=False, model_root=None, **kwargs):
+def resnet34(pretrained=False, model_root=None, cuda=True, **kwargs):
     model = ResNet(BasicBlock, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        misc.load_state_dict(model, model_urls['resnet34'], model_root)
+        misc.load_state_dict(model, model_urls['resnet34'], model_root, cuda)
     return model
 
 
-def resnet50(pretrained=False, model_root=None, **kwargs):
+def resnet50(pretrained=False, model_root=None, cuda=True, **kwargs):
     model = ResNet(Bottleneck, [3, 4, 6, 3], **kwargs)
     if pretrained:
-        misc.load_state_dict(model, model_urls['resnet50'], model_root)
+        misc.load_state_dict(model, model_urls['resnet50'], model_root, cuda)
     return model
 
 
-def resnet101(pretrained=False, model_root=None, **kwargs):
+def resnet101(pretrained=False, model_root=None, cuda=True, **kwargs):
     model = ResNet(Bottleneck, [3, 4, 23, 3], **kwargs)
     if pretrained:
-        misc.load_state_dict(model, model_urls['resnet101'], model_root)
+        misc.load_state_dict(model, model_urls['resnet101'], model_root, cuda)
     return model
 
 
-def resnet152(pretrained=False, model_root=None, **kwargs):
+def resnet152(pretrained=False, model_root=None, cuda=True, **kwargs):
     model = ResNet(Bottleneck, [3, 8, 36, 3], **kwargs)
     if pretrained:
-        misc.load_state_dict(model, model_urls['resnet152'], model_root)
+        misc.load_state_dict(model, model_urls['resnet152'], model_root, cuda)
     return model

@@ -44,7 +44,7 @@ def make_layers(cfg, batch_norm=False):
             in_channels = out_channels
     return nn.Sequential(*layers)
 
-def stl10(n_channel, pretrained=None):
+def stl10(n_channel, pretrained=None, cuda=True):
     cfg = [
         n_channel, 'M',
         2*n_channel, 'M',
@@ -55,7 +55,7 @@ def stl10(n_channel, pretrained=None):
     layers = make_layers(cfg, batch_norm=True)
     model = SVHN(layers, n_channel=8*n_channel, num_classes=10)
     if pretrained is not None:
-        m = model_zoo.load_url(model_urls['stl10'])
+        m = model_zoo.load_url(model_urls['stl10'], map_location=torch.device("cuda" if cuda else "cpu"))
         state_dict = m.state_dict() if isinstance(m, nn.Module) else m
         assert isinstance(state_dict, (dict, OrderedDict)), type(state_dict)
         model.load_state_dict(state_dict)

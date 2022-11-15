@@ -1,5 +1,6 @@
 import torch.nn as nn
 import torch.utils.model_zoo as model_zoo
+import torch
 
 
 __all__ = ['AlexNet', 'alexnet']
@@ -46,8 +47,8 @@ class AlexNet(nn.Module):
         return x
 
 
-def alexnet(pretrained=False, model_root=None, **kwargs):
+def alexnet(pretrained=False, model_root=None, cuda=True, **kwargs):
     model = AlexNet(**kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(model_urls['alexnet'], model_root))
+        model.load_state_dict(model_zoo.load_url(model_urls['alexnet'], model_root, map_location=torch.device("cuda" if cuda else "cpu")))
     return model

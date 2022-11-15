@@ -5,6 +5,7 @@ import pickle as pkl
 import time
 import numpy as np
 import hashlib
+import torch
 
 from IPython import embed
 
@@ -198,7 +199,7 @@ def eval_model(model, ds, n_sample=None, ngpu=1, is_imagenet=False):
     acc5 = correct5 * 1.0 / n_passed
     return acc1, acc5
 
-def load_state_dict(model, model_urls, model_root):
+def load_state_dict(model, model_urls, model_root, cuda=True):
     from torch.utils import model_zoo
     from torch import nn
     import re
@@ -209,7 +210,7 @@ def load_state_dict(model, model_urls, model_root):
         k = re.sub('group\d+\.', '', k)
         own_state[k] = v
 
-    state_dict = model_zoo.load_url(model_urls, model_root)
+    state_dict = model_zoo.load_url(model_urls, model_root, map_location=torch.device("cuda" if cuda else "cpu"))
 
     for name, param in state_dict.items():
         if name not in own_state:
